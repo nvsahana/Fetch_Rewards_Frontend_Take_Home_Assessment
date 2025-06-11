@@ -107,8 +107,27 @@ const Home: React.FC = () => {
 
 
 useEffect(() => {
-  loadDogs(false, {}, undefined, sortAsc);
-}, [loadDogs, sortAsc]);
+  const fetch = async () => {
+    setLoading(true);
+    try {
+      const searchRes = await fetchDogIds({ 
+        breeds: selectedBreeds.length > 0 ? selectedBreeds : undefined,
+        zipCodes: undefined,
+        sort: `breed:${sortAsc ? 'asc' : 'desc'}`,
+        size: 25,
+        from: 0
+      });
+      const dogData = await fetchDogsByIds(searchRes.resultIds);
+      setDogs(dogData);
+      setNextQuery(searchRes.next ?? null);
+      setTotalCount(searchRes.total ?? 0);
+    } catch (error) {
+      console.error('Error fetching dogs:', error);
+    }
+    setLoading(false);
+  };
+  fetch();
+}, [sortAsc]);
 
 
 const handleFilterWithSort = async (sortAscValue: boolean = sortAsc) => {
