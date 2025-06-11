@@ -1,5 +1,5 @@
 // Note: the emoticons/emojis in this project have been referred and copied from here: https://gist.github.com/roachhd/1f029bd4b50b8a524f3c
-import React, { JSX, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   fetchDogIds,
   fetchDogsByIds,
@@ -108,7 +108,7 @@ const Home: React.FC = () => {
 
 useEffect(() => {
   loadDogs(false, {}, undefined, sortAsc);
-}, []);
+}, [loadDogs, sortAsc]);
 
 
 const handleFilterWithSort = async (sortAscValue: boolean = sortAsc) => {
