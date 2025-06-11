@@ -127,7 +127,7 @@ useEffect(() => {
     setLoading(false);
   };
   fetch();
-}, [sortAsc]);
+}, [sortAsc, selectedBreeds]);
 
 
 const handleFilterWithSort = async (sortAscValue: boolean = sortAsc) => {
